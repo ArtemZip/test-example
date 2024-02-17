@@ -8,10 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayDeque;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Queue;
-import java.util.concurrent.SynchronousQueue;
 
 @RestController
 @RequestMapping("/hello")
