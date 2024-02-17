@@ -7,12 +7,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayDeque;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Queue;
 import java.util.concurrent.SynchronousQueue;
 
 @RestController
 @RequestMapping("/hello")
 public class ServiceController {
-    private final SynchronousQueue<String> queue = new SynchronousQueue<>();
+    private final Queue<String> queue = Collections.checkedQueue(new ArrayDeque<>(), String.class);
 
     @GetMapping
     ResponseEntity<String> getHello() {
@@ -32,11 +36,9 @@ public class ServiceController {
             return ResponseEntity.badRequest().build();
         }
 
-        try {
-            queue.put(hello);
-        } catch (InterruptedException e) {
-            return ResponseEntity.internalServerError().build();
+        if (queue.add(hello)) {
+            return ResponseEntity.ok(hello);
         }
-        return ResponseEntity.ok(hello);
+        return ResponseEntity.internalServerError().build();
     }
 }
