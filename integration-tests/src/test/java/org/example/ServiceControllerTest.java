@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.TestTypes.SmokeTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,7 @@ public class ServiceControllerTest {
     }
 
     @Test
+    @SmokeTest
     void simpleSizeTest() {
         var resp = client.getSize();
 

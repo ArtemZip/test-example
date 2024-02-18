@@ -49,3 +49,10 @@ tasks.register("remoteTest", Test) {
     systemProperty("url.to.test", rootProject.property("remoteUrl"))
     useJUnitPlatform()
 }
+
+tasks.register("smokeTest", Test) {
+    systemProperty("url.to.test", rootProject.property("remoteUrl"))
+    useJUnitPlatform{
+        includeTags("smoke")
+    }
+}
